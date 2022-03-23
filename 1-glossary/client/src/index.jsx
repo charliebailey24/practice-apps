@@ -1,30 +1,27 @@
 import React from "react";
 import { render } from "react-dom";
 import axios from 'axios';
+import WordsTable from './components/WordsTable.jsx';
+import AddEntries from './components/AddEntries.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     // words will be an array of objects
-    this.state = {words: []};
+    this.state = {entries: []};
     this.getWords = this.getWords.bind(this);
   }
 
   componentDidMount() {
-    console.log('did mount invoked');
     this.getWords();
   }
 
   getWords() {
-    console.log('get words invoked');
     // make ajax get call
     var thisInGetWords = this;
     axios.get('/api/get')
     .then(function(data) {
-      console.log('axios get res');
-      console.log('this in axios .then:::', this);
-      console.log('data in axios response:::', data);
-      thisInGetWords.setState({words: data.data});
+      thisInGetWords.setState({entries: data.data});
     })
     .catch(function(err) {
       console.log(err);
@@ -32,19 +29,13 @@ class App extends React.Component {
   }
 
   render() {
-    const glossary = this.state.words.map((words) => {
-      return (
-        <React.Fragment>
-          <li>Word: {words.word}</li>
-          <li>Definition: {words.definition}</li>
-        </React.Fragment>
-      )
-    });
+
     return (
       <div>
-        <p>Hello, World! testing a change. still compiling</p>
+        <h2>An awesome amalgimation of appelations</h2>
+        <div><AddEntries /></div>
         <div>
-          <ul>{glossary}</ul>
+          <WordsTable entries={this.state.entries}/>
         </div>
       </div>
     )
@@ -52,4 +43,5 @@ class App extends React.Component {
 }
 
 render(<App />, document.getElementById("root"));
+
 export default App;
