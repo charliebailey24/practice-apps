@@ -14,7 +14,16 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.get('/api/get', function(req, res) {
   console.log('get requet logging server side');
+  console.log('db:::', db);
   // call db
+  db.get(function(err, response) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      console.log('docs in app.get:::', response);
+      res.send(response);
+    }
+  });
 
 })
 
