@@ -25,7 +25,18 @@ let get = function(callback) {
   });
 }
 
+let create = function(data, callback) {
+  GlossaryModel.create(data, function(err, docs) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, docs);
+    }
+  })
+}
+
 module.exports.get = get;
+module.exports.create = create;
 
 // init().catch(err => console.log(err));
 

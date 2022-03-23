@@ -8,24 +8,25 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     // words will be an array of objects
-    this.state = {entries: []};
-    this.getWords = this.getWords.bind(this);
+    this.state = {
+      entries: []};
+    this.getEntries = this.getEntries.bind(this);
   }
 
   componentDidMount() {
-    this.getWords();
+    this.getEntries();
   }
 
-  getWords() {
+  getEntries() {
     // make ajax get call
-    var thisInGetWords = this;
+    var thisInGetEntries = this;
     axios.get('/api/get')
-    .then(function(data) {
-      thisInGetWords.setState({entries: data.data});
-    })
-    .catch(function(err) {
-      console.log(err);
-    })
+      .then(function(data) {
+        thisInGetEntries.setState({entries: data.data});
+      })
+      .catch(function(err) {
+        console.log(err);
+      })
   }
 
   render() {
@@ -33,7 +34,7 @@ class App extends React.Component {
     return (
       <div>
         <h2>An awesome amalgimation of appelations</h2>
-        <div><AddEntries /></div>
+        <div><AddEntries getEntries={this.getEntries}/></div>
         <div>
           <WordsTable entries={this.state.entries}/>
         </div>

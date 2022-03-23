@@ -1,5 +1,6 @@
 import React from 'react';
 import App from '../index.jsx';
+import axios from 'axios';
 
 class AddEntries extends React.Component {
   constructor(props) {
@@ -12,21 +13,34 @@ class AddEntries extends React.Component {
     this.handleWordChange = this.handleWordChange.bind(this);
     this.handleDefinitionChange = this.handleDefinitionChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addEntries = this.addEntries.bind(this);
   }
 
   handleWordChange(event) {
-    console.log('this.state.word:::', this.state.word);
     this.setState({word: event.target.value});
   }
 
   handleDefinitionChange(event) {
-    console.log('this.state.definition:::', this.state.definition);
     this.setState({definition: event.target.value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('handle submit is triggering');
+    this.addEntries();
+  }
+
+  addEntries() {
+    var thisInAddEntries = this;
+    axios.post('/api/post', {
+      word: thisInAddEntries.state.word,
+      definition: thisInAddEntries.state.definition
+    })
+    .then(function(response) {
+      thisInAddEntries.props.getEntries();
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
   }
 
   render() {
