@@ -7,9 +7,10 @@ import AddEntries from './components/AddEntries.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // words will be an array of objects
+    // entries will be an array of objects
     this.state = {
-      entries: []};
+      entries: []
+    };
     this.getEntries = this.getEntries.bind(this);
   }
 
@@ -34,9 +35,9 @@ class App extends React.Component {
     return (
       <div>
         <h2>An awesome amalgimation of appelations</h2>
-        <div><AddEntries getEntries={this.getEntries}/></div>
+        <div><AddEntries updateEntry={this.updateEntry} getEntries={this.getEntries}/></div>
         <div>
-          <WordsTable entries={this.state.entries}/>
+          <WordsTable updateEntry={this.updateEntry} entries={this.state.entries}/>
         </div>
       </div>
     )
