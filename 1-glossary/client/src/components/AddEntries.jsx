@@ -50,10 +50,14 @@ class AddEntries extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>Add appelations:</label>
+        <label>
+          Add word:
           <input type="text" value={this.state.word} onChange={this.handleWordChange} />
-        <label>Add annotation:</label>
+        </label>
+        <label>
+          Add definition:
           <input type="text" value={this.state.definition} onChange={this.handleDefinitionChange}/>
+        </label>
         <input type="submit" value="Add"/>
       </form>
     )

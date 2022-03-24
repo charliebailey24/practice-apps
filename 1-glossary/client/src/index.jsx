@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import axios from 'axios';
 import WordsTable from './components/WordsTable.jsx';
 import AddEntries from './components/AddEntries.jsx';
+import Search from './components/Search.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends React.Component {
       entries: []
     };
     this.getEntries = this.getEntries.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentDidMount() {
@@ -19,7 +21,6 @@ class App extends React.Component {
   }
 
   getEntries() {
-    // make ajax get call
     var thisInGetEntries = this;
     axios.get('/api/get')
       .then(function(data) {
@@ -30,12 +31,30 @@ class App extends React.Component {
       })
   }
 
+  onSearch(term) {
+    term = term.toLowerCase();
+
+    var foundEntries = this.state.entries.filter((entry) => {
+      var wordMatch = entry.word.toLowerCase().includes(term);
+      var definitionMatch = entry.definition.toLowerCase().includes(term);
+
+      if (wordMatch || definitionMatch) {
+        return entry;
+      }
+    });
+    this.setState({entries: foundEntries});
+  }
+
   render() {
 
     return (
       <div>
-        <h2>An awesome amalgimation of appelations</h2>
-        <div><AddEntries updateEntry={this.updateEntry} getEntries={this.getEntries}/></div>
+        <h2>An awesome glossary</h2>
+        <div><AddEntries updateEntry={this.updateEntry} getEntries={this.getEntries}/>
+        </div>
+        <div>
+          <Search onSearch={this.onSearch}/>
+        </div>
         <div>
           <WordsTable updateEntry={this.updateEntry} entries={this.state.entries}/>
         </div>

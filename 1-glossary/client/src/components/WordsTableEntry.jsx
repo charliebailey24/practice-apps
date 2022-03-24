@@ -4,16 +4,19 @@ import WordsTable from './WordsTable.jsx';
 class WordsTableEntry extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleEditDelete = this.handleEditDelete.bind(this);
   }
 
   handleEditDelete(event) {
     event.preventDefault();
     console.log('props for this component:::', this.props.entry);
-
   }
 
   render() {
+    // if true
+      // return with input tag
+    //
     return (
       <div>
         <div>
@@ -29,8 +32,3 @@ class WordsTableEntry extends React.Component {
 }
 
 export default WordsTableEntry;
-
-{/* <React.Fragment>
-<li>Word: {words.word}</li>
-<li>Definition: {words.definition}</li>
-</React.Fragment> */}
