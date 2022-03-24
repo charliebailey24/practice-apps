@@ -43,10 +43,6 @@ class AddEntries extends React.Component {
     })
   }
 
-  updateEntry() {
-    console.log('this inside of update entry:::', this);
-  }
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>

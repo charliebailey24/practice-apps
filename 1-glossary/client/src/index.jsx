@@ -56,7 +56,7 @@ class App extends React.Component {
           <Search onSearch={this.onSearch}/>
         </div>
         <div>
-          <WordsTable updateEntry={this.updateEntry} entries={this.state.entries}/>
+          <WordsTable entries={this.state.entries}/>
         </div>
       </div>
     )
