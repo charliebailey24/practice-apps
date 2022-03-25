@@ -37,6 +37,7 @@ class AddEntries extends React.Component {
     })
     .then(function(response) {
       thisInAddEntries.props.getEntries();
+      thisInAddEntries.setState({ word: '', definition: '' });
     })
     .catch(function(err) {
       console.log(err);

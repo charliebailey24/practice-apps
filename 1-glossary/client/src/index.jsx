@@ -34,6 +34,8 @@ class App extends React.Component {
   onSearch(term) {
     term = term.toLowerCase();
 
+    console.log('searchTerm:::', term);
+
     var foundEntries = this.state.entries.filter((entry) => {
       var wordMatch = entry.word.toLowerCase().includes(term);
       var definitionMatch = entry.definition.toLowerCase().includes(term);
@@ -42,7 +44,10 @@ class App extends React.Component {
         return entry;
       }
     });
-    this.setState({entries: foundEntries});
+    console.log('foundEntries:::', foundEntries);
+    this.setState({entries: foundEntries}, function() {
+      console.log('this.state.entries:::', this.state.entries);
+    });
   }
 
   render() {
@@ -56,7 +61,7 @@ class App extends React.Component {
           <Search onSearch={this.onSearch}/>
         </div>
         <div>
-          <WordsTable entries={this.state.entries}/>
+          <WordsTable getEntries={this.getEntries} entries={this.state.entries}/>
         </div>
       </div>
     )

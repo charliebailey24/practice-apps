@@ -15,7 +15,7 @@ const glossarySchema = new mongoose.Schema({
 
 const GlossaryModel = mongoose.model('Glossary', glossarySchema);
 
-let get = function(callback) {
+var get = function(callback) {
   GlossaryModel.find({}, function(err, docs) {
     if (err) {
       callback(err);
@@ -25,8 +25,28 @@ let get = function(callback) {
   });
 }
 
-let create = function(data, callback) {
+var create = function(data, callback) {
   GlossaryModel.create(data, function(err, docs) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, docs);
+    }
+  })
+}
+
+var deleteEntry = function(_id, callback) {
+  GlossaryModel.deleteOne({ _id: _id }, function(err, docs) {
+    if (err) {
+      callback(err);
+    } else {
+      callback(null, docs);
+    }
+  })
+}
+
+var patch = function(_id, word, definition, callback) {
+  GlossaryModel.findByIdAndUpdate(_id, { word: word, definition: definition }, function(err, docs) {
     if (err) {
       callback(err);
     } else {
@@ -37,6 +57,8 @@ let create = function(data, callback) {
 
 module.exports.get = get;
 module.exports.create = create;
+module.exports.deleteEntry = deleteEntry;
+module.exports.patch = patch;
 
 
 

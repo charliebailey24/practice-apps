@@ -14,30 +14,47 @@ app.use(express.static(path.join(__dirname, "../client/dist")));
 app.use(express.json());
 
 app.get('/api/get', function(req, res) {
-  console.log('get requet logging server side');
-  console.log('db:::', db);
   // call db
   db.get(function(err, response) {
     if (err) {
       res.status(500).send(err);
     } else {
-      console.log('docs in app.get:::', response);
       res.send(response);
     }
   });
 
   app.post('/api/post', function(req, res) {
-    console.log('axios req.body:::', req.body);
     var data = req.body;
     db.create(data, function(err, response) {
       if (err) {
         res.status(500).send(err);
       } else {
-        console.log('docs in app.post:::', response);
         res.send(response);
       }
     })
-  })
+  });
+
+  app.delete('/api/delete', (req, res) => {
+    var { _id } = req.body;
+    db.deleteEntry(_id, function(err, response) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.send(response);
+      }
+    })
+  });
+
+  app.patch('/api/patch', (req, res) => {
+    var { _id, word, definition } = req.body.data;
+    db.patch(_id, word, definition, function(err, response) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.send(response);
+      }
+    })
+  });
 
 })
 
