@@ -7,9 +7,6 @@ class WordsTableEntry extends React.Component {
     super(props);
     this.state = {
       editEnabled: false,
-      // _id: '',
-      // word: '',
-      // definition: ''
       _id: this.props.entry._id,
       word: this.props.entry.word,
       definition: this.props.entry.definition
@@ -21,14 +18,6 @@ class WordsTableEntry extends React.Component {
     this.editDeleteClicked = this.editDeleteClicked.bind(this);
     this.deleteEntry = this.deleteEntry.bind(this);
   }
-
-  // componentDidMount() {
-  //   this.setState({
-  //     _id: this.props.entry._id,
-  //     word: this.props.entry.word,
-  //     definition: this.props.entry.definition
-  //   });
-  // }
 
   editDeleteClicked(event) {
     event.preventDefault();
@@ -60,11 +49,10 @@ class WordsTableEntry extends React.Component {
       data: { _id: thisInDeleteEntry.state._id }
     })
     .then(function(response) {
-      console.log(response);
       thisInDeleteEntry.props.getEntries();
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     })
   }
 
@@ -78,17 +66,14 @@ class WordsTableEntry extends React.Component {
       }
     })
     .then(function(reponse) {
-      console.log(reponse);
       thisInUpdateEntry.props.getEntries();
     })
     .catch(function(error) {
-      console.log(error);
+      console.error(error);
     })
   }
 
   render() {
-    // this.setState({_id: this.props._id, word: this.props.word, definition: this.props.definition});
-
     if (this.state.editEnabled) {
       return (
         <form onSubmit={this.handleEditDeleteSave}>

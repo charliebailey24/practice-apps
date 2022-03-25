@@ -8,13 +8,10 @@ const app = express();
 // Serves up all static and generated assets in ../client/dist.
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-/****
- * Other routes here....
-*/
+// Other routes here
 app.use(express.json());
 
 app.get('/api/get', function(req, res) {
-  // call db
   db.get(function(err, response) {
     if (err) {
       res.status(500).send(err);
@@ -55,8 +52,7 @@ app.get('/api/get', function(req, res) {
       }
     })
   });
-
-})
+});
 
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);

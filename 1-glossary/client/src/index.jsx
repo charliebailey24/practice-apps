@@ -8,7 +8,6 @@ import Search from './components/Search.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // entries will be an array of objects
     this.state = {
       entries: []
     };
@@ -27,14 +26,12 @@ class App extends React.Component {
         thisInGetEntries.setState({entries: data.data});
       })
       .catch(function(err) {
-        console.log(err);
+        console.error(err);
       })
   }
 
   onSearch(term) {
     term = term.toLowerCase();
-
-    console.log('searchTerm:::', term);
 
     var foundEntries = this.state.entries.filter((entry) => {
       var wordMatch = entry.word.toLowerCase().includes(term);
@@ -44,14 +41,11 @@ class App extends React.Component {
         return entry;
       }
     });
-    console.log('foundEntries:::', foundEntries);
-    this.setState({entries: foundEntries}, function() {
-      console.log('this.state.entries:::', this.state.entries);
-    });
+
+    this.setState({entries: foundEntries});
   }
 
   render() {
-
     return (
       <div>
         <h2>An awesome glossary</h2>

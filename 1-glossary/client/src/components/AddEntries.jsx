@@ -40,8 +40,8 @@ class AddEntries extends React.Component {
       thisInAddEntries.setState({ word: '', definition: '' });
     })
     .catch(function(err) {
-      console.log(err);
-    })
+      console.error(err);
+    });
   }
 
   render() {
@@ -58,8 +58,6 @@ class AddEntries extends React.Component {
         <input type="submit" value="Add"/>
       </form>
     )
-
-
   }
 }
 
