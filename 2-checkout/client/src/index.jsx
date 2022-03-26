@@ -12,11 +12,15 @@ class App extends React.Component {
     this.state = {
       page: 'home',
       session_id: '',
-      hasCompleteCheckout: 'false'
+      hasCompleteCheckout: 'false',
+      form1: {},
+      form2: {},
+      form3: {}
     }
 
     this.handleCheckoutClick = this.handleCheckoutClick.bind(this);
-    this.setPage = this.setPage.bind(this);
+    this.saveForm = this.saveForm.bind(this);
+    // this.saveForm2 = this.saveForm2.bind(this);
   }
 
   componentDidMount() {
@@ -25,11 +29,14 @@ class App extends React.Component {
 
   handleCheckoutClick(event) {
     event.preventDefault();
-    this.setState({page: 'Form1'});
+    this.setState({page: 'form1'});
   }
 
-  setPage(view) {
-    this.setState({page: view});
+  saveForm(nextView, form, savedState) {
+    console.log('nextView:::', nextView);
+    console.log('form:::', form);
+    console.log('savedState:::', savedState);
+    this.setState({page: nextView, [form]: savedState});
   }
 
   render() {
@@ -50,21 +57,21 @@ class App extends React.Component {
         // store and check against in the backend
       );
 
-    } else if (this.state.page === 'Form1') {
+    } else if (this.state.page === 'form1') {
 
-      return(<Form1 setPage={this.setPage} />);
+      return(<Form1 saveForm={this.saveForm} />);
 
-    } else if (this.state.page === 'Form2') {
+    } else if (this.state.page === 'form2') {
 
-      return(<Form2 setPage={this.setPage} />);
+      return(<Form2 saveForm={this.saveForm} />);
 
-    } else if (this.state.page === 'Form3') {
+    } else if (this.state.page === 'form3') {
 
-      return(<Form3 setPage={this.setPage} />);
+      return(<Form3 saveForm={this.saveForm} />);
 
     } else if (this.state.page === 'confirm') {
 
-      return(<Confirm setPage={this.setPage} />);
+      return(<Confirm saveForm={this.saveForm} />);
 
     }
   }
